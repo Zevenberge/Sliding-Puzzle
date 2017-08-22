@@ -1,0 +1,31 @@
+{
+	"name": "sliding",
+	"authors": [
+		"marco"
+	],
+	"description": "An object oriented implementation of a classical sliding puzzle.",
+	"copyright": "Copyright © 2017, marco",
+	"license": "proprietary",
+	"targetType": "library",
+	"dependencies":{
+		"sliding:domain":"*",
+		"sliding:ui":"*"
+	},
+	"subPackages":[
+		{
+			"name":"domain",
+			"targetType": "none",
+			"sourcePaths": ["domain/source"],
+			"importPaths": ["domain/source"]
+		},
+		{
+			"name":"ui",
+			"targetType": "executable",
+			"sourcePaths": ["ui/source"],
+			"importPaths": ["ui/source"],
+			"dependencies":{
+				"sliding:domain":"*"
+			}
+		}
+	]
+}

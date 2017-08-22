@@ -1,0 +1,13 @@
+﻿<Properties StartupItem="dub.json">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Default" PreferredExecutionTarget="cov" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="domain/source/element.d">
+    <Files>
+      <File FileName="dub.json" Line="31" Column="2" />
+      <File FileName="domain/source/element.d" Line="8" Column="35" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
