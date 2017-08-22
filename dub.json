@@ -15,17 +15,21 @@
 		{
 			"name":"domain",
 			"targetType": "none",
-			"sourcePaths": ["domain/source"],
-			"importPaths": ["domain/source"]
+			"sourcePaths": ["source/sliding/domain"],
 		},
 		{
 			"name":"ui",
 			"targetType": "executable",
-			"sourcePaths": ["ui/source"],
-			"importPaths": ["ui/source"],
+			"sourcePaths": ["source/sliding/ui"],
 			"dependencies":{
 				"sliding:domain":"*"
 			}
 		}
+	],
+	"importPaths":[
+		"source/"
+	],
+	"sourcePaths":[
+		"source/"
 	]
 }

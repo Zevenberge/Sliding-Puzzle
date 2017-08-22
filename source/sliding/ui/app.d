@@ -1,4 +1,7 @@
+module sliding.ui;
+
 import std.stdio;
+import sliding.domain.avoid;
 
 void main()
 {
