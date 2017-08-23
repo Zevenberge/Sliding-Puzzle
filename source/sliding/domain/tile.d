@@ -28,16 +28,25 @@ class Tile : Element
 
 		override Void void_() 
 		{
-			if(rightNeighbour !is null)
+			if(neighbourhood.rightNeighbour !is null)
 			{
-				auto possibleVoid = rightNeighbour.void_;
+				auto possibleVoid = neighbourhood.rightNeighbour.void_;
 				if(possibleVoid !is null) return possibleVoid;
 			}
-			if(bottomNeighbour !is null)
+			if(neighbourhood.bottomNeighbour !is null)
 			{
-				return bottomNeighbour.void_;
+				return neighbourhood.bottomNeighbour.void_;
 			}
 			return null;
 		}
+	}
+
+	void swap(Void void_)
+	{
+		auto oldNeighbours = neighbourhood;
+		_neighbourhood = void_.neighbourhood;
+		auto oldPosition = position;
+		_position = void_.position;
+		void_.move(oldPosition, oldNeighbours);
 	}
 }
