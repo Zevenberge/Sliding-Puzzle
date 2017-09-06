@@ -22,8 +22,8 @@ struct Position
 		this.y = y;
 	}
 
-	int x; // 0..3
-	int y; // 0..3
+	int x = -1; // 0..3
+	int y = -1; // 0..3
 
 	@property
 	{

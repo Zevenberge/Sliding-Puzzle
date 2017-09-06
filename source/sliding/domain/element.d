@@ -21,12 +21,12 @@ class Element
 
 	@property
 	{
-		Neighbourhood neighbourhood()
+		pure Neighbourhood neighbourhood()
 		{
 			return _neighbourhood;
 		}
 
-		Position position()
+		pure const Position position()
 		{
 			return _position;
 		}

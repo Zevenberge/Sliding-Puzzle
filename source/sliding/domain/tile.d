@@ -18,7 +18,7 @@ class Tile : Element
 		super(positionOfTile);
 	}
 
-	private const Position correctPosition;
+	const Position correctPosition;
 
 	@property
 	{

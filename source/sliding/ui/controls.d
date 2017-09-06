@@ -43,7 +43,8 @@ class KeyboardControl : Control
 			case Down:
 				_void.move(Direction.bottom);
 				return true;
+			default:
+				return false;
 		}
-		return false;
 	}
 }
