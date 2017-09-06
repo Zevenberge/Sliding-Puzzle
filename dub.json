@@ -14,7 +14,7 @@
 	"subPackages":[
 		{
 			"name":"domain",
-			"targetType": "none",
+			"targetType": "library",
 			"sourcePaths": ["source/sliding/domain"],
 		},
 		{
