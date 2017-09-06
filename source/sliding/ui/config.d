@@ -6,7 +6,7 @@ struct Config
 {
 	int pieceSize = 100;
 	int breathingSpace = 5;
-	Vector2i screenSize = Vector2f(500,500);
+	Vector2i screenSize = Vector2i(500,500);
 
 	int puzzleSize() @property pure const
 	{

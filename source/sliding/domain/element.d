@@ -40,7 +40,7 @@ class Element
 			return this ~ elementsToTheRight;
 		}
 
-		private final Element[] allElements()
+		final Element[] allElements()
 		{
 			Element[] elementsInRowsBeneathThis;
 			if(neighbourhood.bottomNeighbour !is null) elementsInRowsBeneathThis = neighbourhood.bottomNeighbour.allElements;

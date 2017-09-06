@@ -16,3 +16,8 @@ Vector2f toPixels(const Position position)
 		Vector2f(shift * position.x, 
 			shift * position.y);
 }
+
+Vector2f toVector2f(const Vector2i orig)
+{
+	return Vector2f(orig.x, orig.y);
+}

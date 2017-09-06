@@ -3,6 +3,7 @@
 import dsfml.graphics;
 import sliding.domain.position;
 import sliding.domain.tile;
+import sliding.ui.config;
 import sliding.ui.conv;
 
 class Piece
@@ -15,8 +16,9 @@ class Piece
 
 	private void initializePicture()
 	{
-
-		_picture = new RectangleShape();
+		auto config = Config();
+		_picture = new RectangleShape(Vector2f(config.pieceSize, config.pieceSize));
+		_picture.fillColor = Color.Red;
 	}
 
 	private const Tile _tile;
