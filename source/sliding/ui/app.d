@@ -1,4 +1,4 @@
-module sliding.ui;
+module sliding.ui.app;
 
 import std.stdio;
 import sliding.domain.avoid;

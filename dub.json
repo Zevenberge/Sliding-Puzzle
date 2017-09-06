@@ -22,7 +22,8 @@
 			"targetType": "executable",
 			"sourcePaths": ["source/sliding/ui"],
 			"dependencies":{
-				"sliding:domain":"*"
+				"sliding:domain":"*",
+				"dsfml":"~master"
 			}
 		}
 	],

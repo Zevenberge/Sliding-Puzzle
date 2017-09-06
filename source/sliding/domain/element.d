@@ -1,5 +1,6 @@
 module sliding.domain.element;
 
+import sliding.domain.direction;
 import sliding.domain.neighbourhood;
 import sliding.domain.position;
 import sliding.domain.avoid;
@@ -9,6 +10,7 @@ class Element
 	this(Position initialPosition)
 	{
 		_position = initialPosition;
+		_neighbourhood = new Neighbourhood;
 	}
 
 	protected
@@ -56,18 +58,18 @@ class Element
 
 	void connectToNeighbours(Element[] allElements)
 	{
-		Element*[Position] vacantNeighbours = [
-				position.left : &neighbourhood.leftNeighbour,
-				position.top : &neighbourhood.topNeighbour,
-				position.right : &neighbourhood.rightNeighbour,
-				position.bottom : &neighbourhood.bottomNeighbour];
+		Direction[Position] vacantNeighbours = [
+				position.left : Direction.left,
+				position.top : Direction.top,
+				position.right : Direction.right,
+				position.bottom : Direction.bottom];
 
 		foreach(element; allElements)
 		{
-			auto vacancy = element.position in vacantNeighbours;
-			if(vacancy !is null)
+			auto vacantDirection = element.position in vacantNeighbours;
+			if(vacantDirection !is null)
 			{
-				*vacancy = &element;
+				neighbourhood.elements[*vacantDirection] = element;
 			}
 		}
 	}

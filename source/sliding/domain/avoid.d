@@ -1,5 +1,6 @@
 module sliding.domain.avoid;
 
+import sliding.domain.direction;
 import sliding.domain.element;
 import sliding.domain.exception;
 import sliding.domain.neighbourhood;
@@ -26,38 +27,21 @@ class Void : Element
 		}
 	}
 
-	void moveLeftNeighbour()
+	void move(Direction direction)
 	{
-		move(neighbourhood.leftNeighbour);
-	}
-
-	void moveTopNeighbour()
-	{
-		move(neighbourhood.topNeighbour);
-	}
-
-	void moveRightNeighbour()
-	{
-		move(neighbourhood.rightNeighbour);
-	}
-
-	void moveBottomNeighbour()
-	{
-		move(neighbourhood.bottomNeighbour);
-	}
-
-	private void move(Element neighbour)
-	{
+		auto neighbour = _neighbourhood.elements[direction];
 		if(neighbour is null)
 		{
 			throw new IllegalMoveException();
 		}
-		(cast(Tile)neighbour).swap(this);
+		(cast(Tile)neighbour).swap(this, direction);
 	}
 
-	void move(Position position, Neighbourhood neighbourhood)
+	void move(Position position, Neighbourhood neighbourhood, Tile swappedTile, Direction directionOfTile)
 	{
 		_position = position;
+		neighbourhood.changeNeighbour(swappedTile, directionOfTile);
 		_neighbourhood = neighbourhood;
+		_neighbourhood.updateNeighbours(this);
 	}
 }

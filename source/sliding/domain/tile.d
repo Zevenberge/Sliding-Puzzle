@@ -1,6 +1,7 @@
 module sliding.domain.tile;
 
 import sliding.domain.avoid;
+import sliding.domain.direction;
 import sliding.domain.element;
 import sliding.domain.position;
 
@@ -41,12 +42,14 @@ class Tile : Element
 		}
 	}
 
-	void swap(Void void_)
+	void swap(Void void_, Direction direction)
 	{
 		auto oldNeighbours = neighbourhood;
 		_neighbourhood = void_.neighbourhood;
+		_neighbourhood.changeNeighbour(void_, direction.opposite);
 		auto oldPosition = position;
 		_position = void_.position;
-		void_.move(oldPosition, oldNeighbours);
+		void_.move(oldPosition, oldNeighbours, this, direction);
+		_neighbourhood.updateNeighbours(this);
 	}
 }
