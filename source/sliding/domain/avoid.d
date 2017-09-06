@@ -12,6 +12,14 @@ class Void : Element
 	this()
 	{
 		super(Position(16));
+		exceptionBehaviourHandler = new NoThrowBehaviourHandler;
+	}
+
+	ExceptionalBehaviourHandler exceptionBehaviourHandler;
+
+	invariant
+	{
+		assert(exceptionBehaviourHandler !is null, "Behaviour handling should always be defined");
 	}
 
 	@property
@@ -32,7 +40,7 @@ class Void : Element
 		auto neighbour = _neighbourhood.elements[direction];
 		if(neighbour is null)
 		{
-			throw new IllegalMoveException();
+			exceptionBehaviourHandler.onIllegalMove;
 		}
 		(cast(Tile)neighbour).swap(this, direction);
 	}

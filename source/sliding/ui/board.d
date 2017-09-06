@@ -2,6 +2,7 @@
 
 import dsfml.graphics;
 import sliding.domain.avoid;
+import sliding.domain.exception;
 import sliding.domain.tile;
 import sliding.ui.config;
 import sliding.ui.controls;
@@ -14,6 +15,7 @@ class Board
 	{
 		import std.algorithm;
 		import std.array;
+		void_.exceptionBehaviourHandler = new ThrowingBehaviourHandler;
 		_pieces = void_.allElements
 					.map!(e => cast(Tile)e)
 					.filter!(t => t !is null)

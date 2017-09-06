@@ -15,3 +15,24 @@ class IllegalMoveException : SlidingException
 		super("Illegal move :(");
 	}
 }
+
+interface ExceptionalBehaviourHandler
+{
+	void onIllegalMove();
+}
+
+class NoThrowBehaviourHandler : ExceptionalBehaviourHandler
+{
+	void onIllegalMove()
+	{
+		// Do nothing.
+	}
+}
+
+class ThrowingBehaviourHandler : ExceptionalBehaviourHandler
+{
+	void onIllegalMove()
+	{
+		throw new IllegalMoveException;
+	}
+}

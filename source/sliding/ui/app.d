@@ -1,9 +1,8 @@
 module sliding.ui.app;
 
-import std.stdio;
-import sliding.domain.avoid;
+import sliding.ui.game;
 
 void main()
 {
-	writeln("Edit source/app.d to start your project.");
+	run;
 }
