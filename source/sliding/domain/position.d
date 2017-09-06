@@ -12,7 +12,7 @@ struct Position
 	body
 	{
 		auto x = (number - 1) % 4;
-		auto y = number / 4;
+		auto y = (number -1) / 4;
 		this(x, y);
 	}
 
@@ -44,4 +44,12 @@ struct Position
 			return Position(x, y + 1);
 		}
 	}
+}
+
+unittest
+{
+	assert(Position(1) == Position(0,0));
+	assert(Position(2) == Position(1,0));
+	assert(Position(5) == Position(0,1));
+	assert(Position(16) == Position(3,3));
 }

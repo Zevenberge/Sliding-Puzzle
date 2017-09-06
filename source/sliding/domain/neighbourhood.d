@@ -5,17 +5,18 @@ import sliding.domain.element;
 
 class Neighbourhood
 {
+	this()
+	{
+		elements = [Direction.bottom : null,
+					Direction.left : null,
+					Direction.right : null,
+					Direction.top : null];
+	}
+
 	Element[Direction] elements;
 
 	@property:
-	Element leftNeighbour()
-	{
-		return elements[Direction.left];
-	}
-	Element topNeighbour()
-	{
-		return elements[Direction.top];
-	}
+
 	Element rightNeighbour()
 	{
 		return elements[Direction.right];
@@ -34,6 +35,7 @@ class Neighbourhood
 	{
 		foreach(direction, neighbour; elements)
 		{
+			if(neighbour is null) continue;
 			neighbour.neighbourhood.changeNeighbour(underlying, direction.opposite);
 		}
 	}

@@ -53,9 +53,12 @@ private Board initialiseBoard()
 {
 	auto factory = new Factory;
 	auto firstElement = factory.create;
+	trace("Created the elements");
 	auto void_ = firstElement.void_;
+	trace("Retreived the void");
 	auto randomizer = new Randomizer;
 	randomizer.shuffle(void_);
+	trace("Shuffled the puzzle");
 	return new Board(void_);
 }
 

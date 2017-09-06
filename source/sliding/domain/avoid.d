@@ -42,7 +42,10 @@ class Void : Element
 		{
 			exceptionBehaviourHandler.onIllegalMove;
 		}
-		(cast(Tile)neighbour).swap(this, direction);
+		else
+		{
+			(cast(Tile)neighbour).swap(this, direction);
+		}
 	}
 
 	void move(Position position, Neighbourhood neighbourhood, Tile swappedTile, Direction directionOfTile)

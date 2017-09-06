@@ -13,6 +13,12 @@ class Element
 		_neighbourhood = new Neighbourhood;
 	}
 
+	invariant
+	{
+		assert(_position.x > -1 && _position.x < 4);
+		assert(_position.y > -1 && _position.y < 4);
+	}
+
 	protected
 	{
 		Neighbourhood _neighbourhood;
@@ -57,6 +63,19 @@ class Element
 	}
 
 	void connectToNeighbours(Element[] allElements)
+	out
+	{
+		import std.algorithm;
+		import std.array;
+		import std.format;
+		int amountOfNeighbours = 2;
+		if(position.x == 1 || position.x == 2) amountOfNeighbours++;
+		if(position.y == 1 || position.y == 2) amountOfNeighbours++;
+		auto countedNeighbours = neighbourhood.elements.values.filter!(e => e !is null).array.length;
+		assert(countedNeighbours == amountOfNeighbours, 
+			"Expected %s neighbours, but got %s".format(amountOfNeighbours, countedNeighbours));
+	}
+	body
 	{
 		Direction[Position] vacantNeighbours = [
 				position.left : Direction.left,
