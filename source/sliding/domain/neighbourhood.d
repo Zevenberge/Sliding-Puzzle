@@ -2,11 +2,19 @@
 
 import sliding.domain.direction;
 import sliding.domain.element;
+import sliding.domain.position;
 
 class Neighbourhood
 {
-	this()
+	this(Position position)
+	in
 	{
+		assert(position.x > -1 && position.x < 4);
+		assert(position.y > -1 && position.y < 4);
+	}
+	body
+	{
+		this.position = position;
 		elements = [Direction.bottom : null,
 					Direction.left : null,
 					Direction.right : null,
@@ -14,6 +22,7 @@ class Neighbourhood
 	}
 
 	Element[Direction] elements;
+	const Position position;
 
 	@property:
 
@@ -33,11 +42,24 @@ class Neighbourhood
 
 	void updateNeighbours(Element underlying)
 	{
+		import std.experimental.logger;
+		trace("Updating neighbours");
 		foreach(direction, neighbour; elements)
 		{
 			if(neighbour is null) continue;
+			trace("Changing neighbours for direction ", direction, " at position ", underlying.position);
 			neighbour.neighbourhood.changeNeighbour(underlying, direction.opposite);
 		}
 	}
+}
 
+unittest
+{
+	import sliding.domain.avoid;
+	auto element = new Void;
+	auto neighbour = new Void;
+	auto subject = element.neighbourhood;
+	subject.elements[Direction.right] = neighbour;
+	subject.updateNeighbours(element);
+	assert(neighbour.neighbourhood.elements[Direction.left] is element);
 }

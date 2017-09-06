@@ -46,10 +46,9 @@ class Tile : Element
 	{
 		auto oldNeighbours = neighbourhood;
 		_neighbourhood = void_.neighbourhood;
-		_neighbourhood.changeNeighbour(void_, direction.opposite);
-		auto oldPosition = position;
-		_position = void_.position;
-		void_.move(oldPosition, oldNeighbours, this, direction);
+		_neighbourhood.elements[direction.opposite] = void_;
+		void_.move(oldNeighbours, this, direction);
 		_neighbourhood.updateNeighbours(this);
 	}
 }
+

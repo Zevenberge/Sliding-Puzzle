@@ -48,11 +48,30 @@ class Void : Element
 		}
 	}
 
-	void move(Position position, Neighbourhood neighbourhood, Tile swappedTile, Direction directionOfTile)
+	void move(Neighbourhood neighbourhood, Tile swappedTile, Direction directionOfTile)
 	{
-		_position = position;
-		neighbourhood.changeNeighbour(swappedTile, directionOfTile);
 		_neighbourhood = neighbourhood;
+		_neighbourhood.elements[directionOfTile] = swappedTile;
 		_neighbourhood.updateNeighbours(this);
 	}
+}
+unittest
+{
+	auto void_ = new Void;
+	auto tile = new Tile(15);
+	void_.connectToNeighbours([tile]);
+	tile.connectToNeighbours([void_]);
+	void_.move(Direction.left);
+	assert(void_.position == Position(15));
+	assert(tile.position == Position(16));
+}
+unittest
+{
+	auto void_ = new Void;
+	auto tile = new Tile(15);
+	void_.connectToNeighbours([tile]);
+	tile.connectToNeighbours([void_]);
+	void_.move(Direction.left);
+	assert(void_.neighbourhood.elements[Direction.right] is tile);
+	assert(tile.neighbourhood.elements[Direction.left] is void_);
 }

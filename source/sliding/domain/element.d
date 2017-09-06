@@ -9,20 +9,14 @@ class Element
 {
 	this(Position initialPosition)
 	{
-		_position = initialPosition;
-		_neighbourhood = new Neighbourhood;
+		_neighbourhood = new Neighbourhood(initialPosition);
 	}
 
-	invariant
-	{
-		assert(_position.x > -1 && _position.x < 4);
-		assert(_position.y > -1 && _position.y < 4);
-	}
+
 
 	protected
 	{
 		Neighbourhood _neighbourhood;
-		Position _position;
 	}
 
 	@property
@@ -34,7 +28,7 @@ class Element
 
 		pure const Position position()
 		{
-			return _position;
+			return _neighbourhood.position;
 		}
 
 		abstract bool isOnCorrectSpot();
@@ -63,19 +57,6 @@ class Element
 	}
 
 	void connectToNeighbours(Element[] allElements)
-	out
-	{
-		import std.algorithm;
-		import std.array;
-		import std.format;
-		int amountOfNeighbours = 2;
-		if(position.x == 1 || position.x == 2) amountOfNeighbours++;
-		if(position.y == 1 || position.y == 2) amountOfNeighbours++;
-		auto countedNeighbours = neighbourhood.elements.values.filter!(e => e !is null).array.length;
-		assert(countedNeighbours == amountOfNeighbours, 
-			"Expected %s neighbours, but got %s".format(amountOfNeighbours, countedNeighbours));
-	}
-	body
 	{
 		Direction[Position] vacantNeighbours = [
 				position.left : Direction.left,
@@ -92,4 +73,39 @@ class Element
 			}
 		}
 	}
+}
+unittest
+{
+	import std.algorithm;
+	import sliding.domain.tile;
+	auto tile1 = new Tile(1);
+	tile1.connectToNeighbours([tile1]);
+	assert(tile1.neighbourhood.elements.values.all!(e => e is null));
+}
+
+unittest
+{
+	import std.algorithm;
+	import sliding.domain.tile;
+	auto tile1 = new Tile(1);
+	auto tile15 = new Tile(15);
+	tile1.connectToNeighbours([tile1, tile15]);
+	assert(tile1.neighbourhood.elements.values.all!(e => e is null));
+}
+
+unittest
+{
+	import sliding.domain.tile;
+	auto tile1 = new Tile(1);
+	auto tile2 = new Tile(2);
+	tile1.connectToNeighbours([tile1, tile2]);
+	assert(tile1.neighbourhood.rightNeighbour is tile2);
+}
+unittest
+{
+	import sliding.domain.tile;
+	auto tile1 = new Tile(1);
+	auto tile5 = new Tile(5);
+	tile1.connectToNeighbours([tile1, tile5]);
+	assert(tile1.neighbourhood.bottomNeighbour is tile5);
 }
