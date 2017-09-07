@@ -15,7 +15,7 @@ void run()
 	window.setFramerateLimit(60);
 	
 	trace("Creating board");
-	auto board = initialiseBoard;
+	auto board = initialiseBoard("res/example.png");
 	trace("Starting application loop");
 	try
 	{
@@ -53,7 +53,7 @@ void run()
 	}
 }
 
-private Board initialiseBoard()
+private Board initialiseBoard(string filename)
 {
 	auto factory = new Factory;
 	auto firstElement = factory.create;
@@ -63,7 +63,7 @@ private Board initialiseBoard()
 	auto randomizer = new Randomizer;
 	randomizer.shuffle(void_);
 	trace("Shuffled the puzzle");
-	return new Board(void_);
+	return new Board(void_, filename);
 }
 
 private void writeThrowable(Throwable t)

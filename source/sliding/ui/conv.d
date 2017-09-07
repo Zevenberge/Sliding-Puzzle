@@ -1,5 +1,6 @@
 ﻿module sliding.ui.conv;
 
+import std.conv;
 import dsfml.system;
 import sliding.domain.position;
 import sliding.ui.config;
@@ -20,4 +21,9 @@ Vector2f toPixels(const Position position)
 Vector2f toVector2f(const Vector2i orig)
 {
 	return Vector2f(orig.x, orig.y);
+}
+
+Vector2i toVector2i(const Vector2u orig)
+{
+	return Vector2i(orig.x.to!int, orig.y.to!int);
 }

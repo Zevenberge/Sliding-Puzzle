@@ -5,24 +5,18 @@ import sliding.domain.position;
 import sliding.domain.tile;
 import sliding.ui.config;
 import sliding.ui.conv;
+import sliding.ui.picture;
 
 class Piece
 {
-	this(const Tile tile)
+	this(const Tile tile, const Picture picture)
 	{
 		_tile = tile;
-		initializePicture;
-	}
-
-	private void initializePicture()
-	{
-		auto config = Config();
-		_picture = new RectangleShape(Vector2f(config.pieceSize, config.pieceSize));
-		_picture.fillColor = Color.Red;
+		_picture = picture.getPiece(tile);
 	}
 
 	private const Tile _tile;
-	private RectangleShape _picture;
+	private Sprite _picture;
 	private Position _position;
 
 	void draw(RenderTarget target)

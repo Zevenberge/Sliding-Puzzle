@@ -7,19 +7,21 @@ import sliding.domain.tile;
 import sliding.ui.config;
 import sliding.ui.controls;
 import sliding.ui.conv;
+import sliding.ui.picture;
 import sliding.ui.piece;
 
 class Board
 {
-	this(Void void_)
+	this(Void void_, string filename)
 	{
 		import std.algorithm;
 		import std.array;
 		void_.exceptionBehaviourHandler = new ThrowingBehaviourHandler;
+		_picture = new Picture(filename);
 		_pieces = void_.allElements
 					.map!(e => cast(Tile)e)
 					.filter!(t => t !is null)
-					.map!(t => new Piece(t))
+					.map!(t => new Piece(t, _picture))
 					.array;
 		_control = new KeyboardControl(void_);
 		initializeBackground;
@@ -38,6 +40,7 @@ class Board
 	private RectangleShape _topBackground;
 	private Control _control;
 	private Piece[] _pieces;
+	private Picture _picture;
 
 	bool handle(Event event)
 	{
