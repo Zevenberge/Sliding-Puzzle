@@ -25,7 +25,14 @@ class Neighbourhood
 	const Position position;
 
 	@property:
-
+	Element leftNeighbour()
+	{
+		return elements[Direction.left];
+	}
+	Element topNeighbour()
+	{
+		return elements[Direction.top];
+	}
 	Element rightNeighbour()
 	{
 		return elements[Direction.right];

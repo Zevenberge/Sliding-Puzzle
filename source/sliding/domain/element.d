@@ -24,6 +24,19 @@ class Element
 			return _neighbourhood;
 		}
 
+		private Element topLeftElement()
+		{
+			if(_neighbourhood.topNeighbour !is null)
+			{
+				return _neighbourhood.topNeighbour.topLeftElement;
+			}
+			if(_neighbourhood.leftNeighbour !is null)
+			{
+				return _neighbourhood.leftNeighbour.topLeftElement;
+			}
+			return this;
+		}
+
 		pure const Position position()
 		{
 			return _neighbourhood.position;
@@ -31,7 +44,7 @@ class Element
 
 		abstract bool isOnCorrectSpot();
 
-		private final Element[] row()
+		private Element[] row()
 		{
 			Element[] elementsToTheRight;
 			if(neighbourhood.rightNeighbour !is null) elementsToTheRight = neighbourhood.rightNeighbour.row;
@@ -40,9 +53,7 @@ class Element
 
 		final Element[] allElements()
 		{
-			Element[] elementsInRowsBeneathThis;
-			if(neighbourhood.bottomNeighbour !is null) elementsInRowsBeneathThis = neighbourhood.bottomNeighbour.allElements;
-			return row ~ elementsInRowsBeneathThis;
+			return topLeftElement.allElementsImpl;
 		}
 
 		final bool isSolved()
@@ -70,6 +81,13 @@ class Element
 				neighbourhood.elements[*vacantDirection] = element;
 			}
 		}
+	}
+
+	private Element[] allElementsImpl()
+	{
+		Element[] elementsInRowsBeneathThis;
+		if(neighbourhood.bottomNeighbour !is null) elementsInRowsBeneathThis = neighbourhood.bottomNeighbour.allElementsImpl;
+		return row ~ elementsInRowsBeneathThis;
 	}
 }
 unittest
@@ -106,4 +124,17 @@ unittest
 	auto tile5 = new Tile(5);
 	tile1.connectToNeighbours([tile1, tile5]);
 	assert(tile1.neighbourhood.bottomNeighbour is tile5);
+}
+
+unittest
+{
+	import sliding.domain.factory;
+	import sliding.domain.tile;
+	auto tile11 = new Tile(1);
+	auto tile12 = new Tile(2);
+	auto tile21 = new Tile(5);
+	auto tile22 = new Tile(6);
+	new Factory().connectElements([tile11, tile12, tile21, tile22]);
+	assert(tile11.allElements.length == 4);
+	assert(tile22.allElements.length == 4);
 }

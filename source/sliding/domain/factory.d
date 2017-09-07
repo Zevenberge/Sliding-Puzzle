@@ -23,7 +23,7 @@ class Factory
 		return elements;
 	}
 
-	private void connectElements(Element[] elements)
+	void connectElements(Element[] elements)
 	{
 		elements.each!(element => element.connectToNeighbours(elements));
 	}
