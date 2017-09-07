@@ -32,16 +32,16 @@ class KeyboardControl : Control
 		switch(key) with (Keyboard.Key)
 		{
 			case Left:
-				_void.move(Direction.left);
-				return true;
-			case Up:
-				_void.move(Direction.top);
-				return true;
-			case Right:
 				_void.move(Direction.right);
 				return true;
-			case Down:
+			case Up:
 				_void.move(Direction.bottom);
+				return true;
+			case Right:
+				_void.move(Direction.left);
+				return true;
+			case Down:
+				_void.move(Direction.top);
 				return true;
 			default:
 				return false;
