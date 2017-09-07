@@ -9,6 +9,7 @@ import sliding.ui.controls;
 import sliding.ui.conv;
 import sliding.ui.picture;
 import sliding.ui.piece;
+import sliding.ui.util;
 
 class Board
 {
@@ -29,19 +30,29 @@ class Board
 
 	private void initializeBackground()
 	{
+		import std.experimental.logger;
 		auto config = Config();
 		_bottomBackground = new RectangleShape(config.screenSize.toVector2f);
 		_bottomBackground.fillColor = Color.Blue;
-		_topBackground = new RectangleShape(config.screenSize.toVector2f - Vector2f(50,50));
-		_topBackground.fillColor = Color.Green;
+		_boardTexture = "res/board.png".load;
+		_board = _boardTexture.createSprite(config.boardSize);
+		auto screenSize = FloatRect(Vector2f(0,0), config.screenSize.toVector2f);
+		_board.center(screenSize);
+		auto topBackgroundSize = config.puzzleSize + 2*config.breathingSpace;
+		_topBackground = new RectangleShape(Vector2f(topBackgroundSize, topBackgroundSize));
+		_topBackground.center(screenSize);
+		_topBackground.fillColor = Color(70,45,24,180);
 	}
 
 	private RectangleShape _bottomBackground;
+	private Texture _boardTexture;
+	private Sprite _board;
 	private RectangleShape _topBackground;
 	private Control _control;
 	private Piece[] _pieces;
 	private Picture _picture;
 
+	// TODO : Verplaats deze zooi naar Picture, aangezien dat de klasse is die blijkbaar daarvoor verantwoordelijk is.
 	bool handle(Event event)
 	{
 		return _control.handle(event);
@@ -56,6 +67,7 @@ class Board
 	private void drawBackground(RenderTarget target)
 	{
 		target.draw(_bottomBackground);
+		target.draw(_board);
 		target.draw(_topBackground);
 	}
 

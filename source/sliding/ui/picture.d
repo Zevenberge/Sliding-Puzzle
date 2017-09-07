@@ -4,7 +4,6 @@ import dsfml.graphics;
 import sliding.domain.tile;
 import sliding.ui.config;
 import sliding.ui.conv;
-import sliding.ui.exception;
 import sliding.ui.util;
 
 class Picture
@@ -17,11 +16,7 @@ class Picture
 
 	private void load(string filename)
 	{
-		_texture = new Texture;
-		if(!_texture.loadFromFile(filename))
-		{
-			throw new LoadFromFileFailedException(filename);
-		}
+		_texture = .load(filename);
 	}
 
 	private void determineAreaOfInterest()

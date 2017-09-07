@@ -41,3 +41,29 @@ void setPixels(Sprite sprite, float size)
 	float adjustment = size/spriteSize.width;
 	sprite.scale = scale0 * adjustment;
 }
+
+Texture load(string filename)
+{
+	import sliding.ui.exception;
+	auto texture = new Texture;
+	if(!texture.loadFromFile(filename))
+	{
+		throw new LoadFromFileFailedException(filename);
+	}
+	return texture;
+}
+
+Sprite createSprite(const Texture texture, float finalSpriteSize)
+{
+	auto sprite = new Sprite(texture);
+	sprite.setPixels(finalSpriteSize);
+	return sprite;
+}
+
+void center(T)(T transformable, const FloatRect rect) 
+{
+	auto size = transformable.getGlobalBounds;
+	auto x = rect.left + (rect.width - size.width)/2.;
+	auto y = rect.top + (rect.height - size.height)/2.;
+	transformable.position = Vector2f(x,y);
+}
