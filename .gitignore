@@ -7,3 +7,6 @@ __dummy.html
 *.obj
 __test__*__
 *.lst
+sliding-domain-test-library
+
+sliding_ui

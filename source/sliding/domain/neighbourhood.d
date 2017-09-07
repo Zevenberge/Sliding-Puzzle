@@ -42,12 +42,9 @@ class Neighbourhood
 
 	void updateNeighbours(Element underlying)
 	{
-		import std.experimental.logger;
-		trace("Updating neighbours");
 		foreach(direction, neighbour; elements)
 		{
 			if(neighbour is null) continue;
-			trace("Changing neighbours for direction ", direction, " at position ", underlying.position);
 			neighbour.neighbourhood.changeNeighbour(underlying, direction.opposite);
 		}
 	}

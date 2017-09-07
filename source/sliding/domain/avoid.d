@@ -37,7 +37,7 @@ class Void : Element
 
 	void move(Direction direction)
 	{
-		auto neighbour = _neighbourhood.elements[direction];
+		auto neighbour = _neighbourhood.elements[direction.opposite];
 		if(neighbour is null)
 		{
 			exceptionBehaviourHandler.onIllegalMove;
@@ -61,7 +61,7 @@ unittest
 	auto tile = new Tile(15);
 	void_.connectToNeighbours([tile]);
 	tile.connectToNeighbours([void_]);
-	void_.move(Direction.left);
+	void_.move(Direction.right);
 	assert(void_.position == Position(15));
 	assert(tile.position == Position(16));
 }
@@ -71,7 +71,7 @@ unittest
 	auto tile = new Tile(15);
 	void_.connectToNeighbours([tile]);
 	tile.connectToNeighbours([void_]);
-	void_.move(Direction.left);
+	void_.move(Direction.right);
 	assert(void_.neighbourhood.elements[Direction.right] is tile);
 	assert(tile.neighbourhood.elements[Direction.left] is void_);
 }
