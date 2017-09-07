@@ -22,6 +22,7 @@ class Board
 					.map!(t => new Piece(t))
 					.array;
 		_control = new KeyboardControl(void_);
+		initializeBackground;
 	}
 
 	private void initializeBackground()

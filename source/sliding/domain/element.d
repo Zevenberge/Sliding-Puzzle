@@ -12,8 +12,6 @@ class Element
 		_neighbourhood = new Neighbourhood(initialPosition);
 	}
 
-
-
 	protected
 	{
 		Neighbourhood _neighbourhood;

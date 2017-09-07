@@ -30,6 +30,10 @@ void run()
 					window.close;
 					break windowLoop;
 				}
+				else
+				{
+					board.handle(event);
+				}
 			}
 			board.draw(window);
 			window.display;
