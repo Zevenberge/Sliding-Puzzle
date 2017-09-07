@@ -23,12 +23,21 @@ unittest
 
 IntRect getRelativeRectangle(IntRect bounds, Position position)
 {
+	import std.conv;
 	// Assume squared.
 	auto config = Config();
-	auto conversionRate = bounds.width / config.puzzleSize;
+	auto conversionRate = bounds.width.to!float / config.puzzleSize;
 	auto stepSize = conversionRate * (config.pieceSize + config.breathingSpace);
-	auto convertedSize = conversionRate * config.pieceSize;
-	return IntRect(bounds.left + stepSize * position.x,
-		bounds.top + stepSize * position.y,
+	auto convertedSize = (conversionRate * config.pieceSize).to!int;
+	return IntRect((bounds.left + stepSize * position.x).to!int,
+		(bounds.top + stepSize * position.y).to!int,
 		convertedSize, convertedSize);
+}
+
+void setPixels(Sprite sprite, float size)
+{
+	FloatRect spriteSize = sprite.getGlobalBounds();
+	Vector2f scale0 = sprite.scale;
+	float adjustment = size/spriteSize.width;
+	sprite.scale = scale0 * adjustment;
 }
