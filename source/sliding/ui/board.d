@@ -30,10 +30,10 @@ class Board
 
 	private void initializeBackground()
 	{
-		import std.experimental.logger;
 		auto config = Config();
-		_bottomBackground = new RectangleShape(config.screenSize.toVector2f);
-		_bottomBackground.fillColor = Color.Blue;
+		_bottomTexture = "res/board-bg.png".load;
+		_bottomBackground = _bottomTexture.createSprite(config.screenSize.x);
+		_bottomBackground.color = Color(150,150,150,255);
 		_boardTexture = "res/board.png".load;
 		_board = _boardTexture.createSprite(config.boardSize);
 		auto screenSize = FloatRect(Vector2f(0,0), config.screenSize.toVector2f);
@@ -44,7 +44,8 @@ class Board
 		_topBackground.fillColor = Color(70,45,24,180);
 	}
 
-	private RectangleShape _bottomBackground;
+	private Texture _bottomTexture;
+	private Sprite _bottomBackground;
 	private Texture _boardTexture;
 	private Sprite _board;
 	private RectangleShape _topBackground;
