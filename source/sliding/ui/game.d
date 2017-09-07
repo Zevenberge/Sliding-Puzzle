@@ -2,6 +2,7 @@
 
 import std.experimental.logger;
 import dsfml.graphics;
+import sliding.domain.exception;
 import sliding.domain.factory;
 import sliding.domain.randomizer;
 import sliding.ui.board;
@@ -32,7 +33,14 @@ void run()
 				}
 				else
 				{
-					board.handle(event);
+					try
+					{
+						board.handle(event);
+					}
+					catch(IllegalMoveException)
+					{
+						warning("Please don't try anything naughty");
+					}
 				}
 			}
 			board.draw(window);
