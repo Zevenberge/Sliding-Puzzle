@@ -58,4 +58,14 @@ class Board
 		target.draw(_board);
 		target.draw(_topBackground);
 	}
+
+	bool isPuzzleSolved()
+	{
+		return _picture.isPuzzleSolved;
+	}
+
+	void TODO()
+	{
+		_picture.TODO;
+	}
 }

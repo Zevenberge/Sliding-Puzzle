@@ -14,8 +14,10 @@ class Picture
 	this(Void void_, string filename)
 	{
 		void_.exceptionBehaviourHandler = new ThrowingBehaviourHandler;
+		_void = void_;
 		load(filename);
 		determineAreaOfInterest;
+		hideSolution;
 		gatherAllPieces(void_);
 	}
 
@@ -28,6 +30,16 @@ class Picture
 	{
 		auto size = _texture.getSize;
 		_areaOfInterest = IntRect(Vector2i(), size.toVector2i).biggestCenteredSquare;
+	}
+
+	private void hideSolution()
+	{
+		auto config = Config();
+		_solution = new Sprite(_texture);
+		_solution.textureRect = _areaOfInterest;
+		_solution.setPixels(config.puzzleSize);
+		_solution.center(config.screenSize.toFloatRect);
+		_solution.color = Color(255,255,255,0);
 	}
 
 	private void gatherAllPieces(Void void_)
@@ -43,7 +55,9 @@ class Picture
 
 	private Texture _texture;
 	private IntRect _areaOfInterest;
+	private Sprite _solution;
 	private Piece[] _pieces;
+	private Void _void;
 
 	Sprite getPiece(const Tile tile) const
 	{
@@ -59,5 +73,16 @@ class Picture
 	{
 		import std.algorithm.iteration;
 		_pieces.each!(p => p.draw(target));
+		target.draw(_solution);
+	}
+
+	bool isPuzzleSolved()
+	{
+		return _void.isSolved;
+	}
+
+	void TODO()
+	{
+		_solution.color = Color.White;
 	}
 }

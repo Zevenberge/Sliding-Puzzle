@@ -22,6 +22,9 @@ class State
 	protected Board _board;
 
 	abstract bool handle(Event event);
+
+	abstract void yield();
+
 	void draw(RenderTarget target)
 	{
 		_board.draw(target);
@@ -45,7 +48,6 @@ class Initializing : State, StateChange
 		trace("Creating board");
 		auto board = initialiseBoard("res/example.png");
 		_state = new Initializing(board);
-		become!Playing;
 	}
 
 	private this(Board board)
@@ -56,6 +58,11 @@ class Initializing : State, StateChange
 	override bool handle(Event event)
 	{
 		return false;
+	}
+
+	override void yield()
+	{
+		become!Playing;
 	}
 }
 
@@ -88,5 +95,41 @@ class Playing : State, StateChange
 	{
 		return _board.handle(event);
 	}
+
+	override void yield()
+	{
+		if(_board.isPuzzleSolved)
+		{
+			become!Solved;
+		}
+	}
 }
 
+class Solved : State, StateChange
+{
+	private static void changeState()
+	{
+		_state = new Solved(_state._board);
+	}
+
+	private this(Board board)
+	{
+		super(board);
+		initiateSolutionAnimation;
+	}
+
+	private void initiateSolutionAnimation()
+	{
+		_board.TODO;
+	}
+
+	override bool handle(Event event)
+	{
+		return false;
+	}
+
+	override void yield() 
+	{
+		// TODO
+	}
+}

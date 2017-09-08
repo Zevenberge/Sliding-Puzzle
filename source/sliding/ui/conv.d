@@ -1,7 +1,7 @@
 ﻿module sliding.ui.conv;
 
 import std.conv;
-import dsfml.system;
+import dsfml.graphics;
 import sliding.domain.position;
 import sliding.ui.config;
 
@@ -16,6 +16,11 @@ Vector2f toPixels(const Position position)
 	return topLeft + 
 		Vector2f(shift * position.x, 
 			shift * position.y);
+}
+
+FloatRect toFloatRect(const Vector2i size)
+{
+	return FloatRect(0, 0, size.x, size.y);
 }
 
 Vector2f toVector2f(const Vector2i orig)

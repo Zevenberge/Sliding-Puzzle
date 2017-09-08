@@ -41,6 +41,7 @@ void run()
 			}
 			state.draw(window);
 			window.display;
+			state.yield;
 		}
 	}
 	catch(Exception e)
