@@ -16,7 +16,7 @@ class Board
 	{
 		_void = void_;
 		initializeBackground;
-		_puzzles = getFilenamesFromFolder;
+		_puzzles = getCustomPuzzles;
 	}
 
 	private void initializeBackground()
@@ -97,7 +97,27 @@ class Board
 	}
 }
 
-private string[] getFilenamesFromFolder()
+private string[] getCustomPuzzles()
 {
+	import std.array;
+	auto customPuzzles = searchThroughDestinatedFolder;
+	if(!customPuzzles.empty) return customPuzzles;
 	return ["res/example.png"];
 }
+
+private string[] searchThroughDestinatedFolder()
+{
+	import std.algorithm;
+	import std.array;
+	import std.file;
+	import std.random;
+	auto customFolder = "res/puzzles";
+	if(!customFolder.isDir) return null;
+	auto images = customFolder.dirEntries(SpanMode.breadth)
+		.map!(file => file.name)
+		.filter!(file => file.endsWith(".png")).array;
+	images.randomShuffle;
+	return images;
+}
+
+
