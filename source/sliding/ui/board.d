@@ -2,28 +2,17 @@
 
 import dsfml.graphics;
 import sliding.domain.avoid;
-import sliding.domain.exception;
-import sliding.domain.tile;
 import sliding.ui.config;
 import sliding.ui.controls;
 import sliding.ui.conv;
 import sliding.ui.picture;
-import sliding.ui.piece;
 import sliding.ui.util;
 
 class Board
 {
 	this(Void void_, string filename)
 	{
-		import std.algorithm;
-		import std.array;
-		void_.exceptionBehaviourHandler = new ThrowingBehaviourHandler;
-		_picture = new Picture(filename);
-		_pieces = void_.allElements
-					.map!(e => cast(Tile)e)
-					.filter!(t => t !is null)
-					.map!(t => new Piece(t, _picture))
-					.array;
+		_picture = new Picture(void_, filename);
 		_control = new KeyboardControl(void_);
 		initializeBackground;
 	}
@@ -50,7 +39,6 @@ class Board
 	private Sprite _board;
 	private RectangleShape _topBackground;
 	private Control _control;
-	private Piece[] _pieces;
 	private Picture _picture;
 
 	// TODO : Verplaats deze zooi naar Picture, aangezien dat de klasse is die blijkbaar daarvoor verantwoordelijk is.
@@ -62,7 +50,7 @@ class Board
 	void draw(RenderTarget target)
 	{
 		drawBackground(target);
-		drawPieces(target);
+		_picture.draw(target);
 	}
 
 	private void drawBackground(RenderTarget target)
@@ -70,11 +58,5 @@ class Board
 		target.draw(_bottomBackground);
 		target.draw(_board);
 		target.draw(_topBackground);
-	}
-
-	private void drawPieces(RenderTarget target)
-	{
-		import std.algorithm.iteration;
-		_pieces.each!(p => p.draw(target));
 	}
 }
