@@ -50,5 +50,10 @@ class Tile : Element
 		void_.move(oldNeighbours, this, direction);
 		_neighbourhood.updateNeighbours(this);
 	}
+
+	void move()
+	{
+		_neighbourhood.moveToNeighbouringVoid;
+	}
 }
 

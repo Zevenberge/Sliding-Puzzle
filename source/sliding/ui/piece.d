@@ -3,19 +3,20 @@
 import dsfml.graphics;
 import sliding.domain.position;
 import sliding.domain.tile;
+import sliding.ui.anime;
 import sliding.ui.config;
 import sliding.ui.conv;
 import sliding.ui.picture;
 
 class Piece
 {
-	this(const Tile tile, const Picture picture)
+	this(Tile tile, const Picture picture)
 	{
 		_tile = tile;
 		_picture = picture.getPiece(tile);
 	}
 
-	private const Tile _tile;
+	private Tile _tile;
 	private Sprite _picture;
 	private Position _position;
 
@@ -32,5 +33,20 @@ class Piece
 			_position = _tile.position;
 			_picture.position = _position.toPixels;
 		}
+	}
+
+	bool contains(Vector2i coord)
+	{
+		return _picture.getGlobalBounds.contains(coord);
+	}
+
+	void move()
+	{
+		_tile.move();
+	}
+
+	void showError()
+	{
+		_picture.glowRed(Config().animationDuration);
 	}
 }

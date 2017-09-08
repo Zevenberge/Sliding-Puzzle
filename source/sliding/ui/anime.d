@@ -98,7 +98,7 @@ private class GlowingRedSpriteAnimation : Animation
 	{
 		auto color = _sprite.color;
 		auto increment_g = (255 - color.g)/_amountOfFrames;
-		auto increment_b = ( 255 - color.r)/_amountOfFrames;
+		auto increment_b = ( 255 - color.b)/_amountOfFrames;
 		_sprite.color = Color(color.r, 
 			(color.g + increment_g).to!ubyte, 
 			(color.b + increment_b).to!ubyte, color.a);

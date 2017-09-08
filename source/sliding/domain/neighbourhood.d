@@ -1,7 +1,9 @@
 ﻿module sliding.domain.neighbourhood;
 
+import sliding.domain.avoid;
 import sliding.domain.direction;
 import sliding.domain.element;
+import sliding.domain.exception;
 import sliding.domain.position;
 
 class Neighbourhood
@@ -54,6 +56,20 @@ class Neighbourhood
 			if(neighbour is null) continue;
 			neighbour.neighbourhood.changeNeighbour(underlying, direction.opposite);
 		}
+	}
+
+	void moveToNeighbouringVoid()
+	{
+		foreach(direction, neighbour; elements)
+		{
+			auto void_ = cast(Void)neighbour;
+			if(void_ !is null)
+			{
+				void_.move(direction);
+				return;
+			}
+		}
+		throw new IllegalMoveException;
 	}
 }
 

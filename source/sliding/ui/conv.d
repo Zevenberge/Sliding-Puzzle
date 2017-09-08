@@ -32,3 +32,8 @@ Vector2i toVector2i(const Vector2u orig)
 {
 	return Vector2i(orig.x.to!int, orig.y.to!int);
 }
+
+Vector2i toVector2i(const Event.MouseButtonEvent event)
+{
+	return Vector2i(event.x, event.y);
+}

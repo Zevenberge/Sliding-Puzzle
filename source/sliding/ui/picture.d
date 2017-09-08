@@ -58,6 +58,10 @@ class Picture
 	private IntRect _areaOfInterest;
 	private Sprite _solution;
 	private Piece[] _pieces;
+	Piece[] pieces() @property
+	{
+		return _pieces;
+	}
 	private Void _void;
 
 	Sprite getPiece(const Tile tile) const

@@ -14,7 +14,7 @@ class Board
 	this(Void void_, string filename)
 	{
 		_picture = new Picture(void_, filename);
-		_control = new KeyboardControl(void_);
+		_control = new KeyboardAndMouseControl(void_, _picture.pieces);
 		initializeBackground;
 	}
 

@@ -3,6 +3,9 @@
 import dsfml.graphics;
 import sliding.domain.avoid;
 import sliding.domain.direction;
+import sliding.domain.exception;
+import sliding.ui.conv;
+import sliding.ui.piece;
 
 interface Control
 {
@@ -46,5 +49,64 @@ class KeyboardControl : Control
 			default:
 				return false;
 		}
+	}
+}
+
+class MouseControl : Control
+{
+	this(Piece[] allPieces)
+	{
+		_allPieces = allPieces;
+	}
+
+	private Piece[] _allPieces;
+	bool handle(Event event)
+	{
+		if(event.type == Event.EventType.MouseButtonReleased)
+		{
+			return handleClick(event.mouseButton);
+		}
+		return false;
+	}
+
+	private bool handleClick(Event.MouseButtonEvent event)
+	{
+		auto coord = event.toVector2i;
+		foreach(piece; _allPieces)
+		{
+			if(piece.contains(coord))
+			{
+				try
+				{
+					piece.move;
+					return true;
+				}
+				catch(IllegalMoveException)
+				{
+					import std.experimental.logger;
+					info("No touching there");
+					piece.showError;
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+}
+
+class KeyboardAndMouseControl : Control
+{
+	this(Void void_, Piece[] allPieces)
+	{
+		_keyboard = new KeyboardControl(void_);
+		_mouse = new MouseControl(allPieces);
+	}
+
+	private KeyboardControl _keyboard;
+	private MouseControl _mouse;
+
+	bool handle(Event event)
+	{
+		return _keyboard.handle(event) || _mouse.handle(event);
 	}
 }
