@@ -3,6 +3,7 @@
 import std.experimental.logger;
 import dsfml.graphics;
 import sliding.domain.exception;
+import sliding.ui.anime;
 import sliding.ui.config;
 import sliding.ui.state;
 
@@ -42,6 +43,7 @@ void run()
 			state.draw(window);
 			window.display;
 			state.yield;
+			animateAllAnimations;
 		}
 	}
 	catch(Exception e)

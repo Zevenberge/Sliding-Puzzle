@@ -13,4 +13,6 @@ struct Config
 	{
 		return 4*pieceSize + 3*breathingSpace;
 	}
+
+	int animationDuration = 60;
 }

@@ -4,6 +4,7 @@ import dsfml.graphics;
 import sliding.domain.avoid;
 import sliding.domain.exception;
 import sliding.domain.tile;
+import sliding.ui.anime;
 import sliding.ui.config;
 import sliding.ui.conv;
 import sliding.ui.piece;
@@ -81,8 +82,8 @@ class Picture
 		return _void.isSolved;
 	}
 
-	void TODO()
+	Animation startShowingSolution()
 	{
-		_solution.color = Color.White;
+		return _solution.appear(Config().animationDuration);
 	}
 }

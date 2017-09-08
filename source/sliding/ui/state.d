@@ -4,6 +4,7 @@ import std.experimental.logger;
 import dsfml.graphics;
 import sliding.domain.factory;
 import sliding.domain.randomizer;
+import sliding.ui.anime;
 import sliding.ui.board;
 
 State state()
@@ -120,8 +121,10 @@ class Solved : State, StateChange
 
 	private void initiateSolutionAnimation()
 	{
-		_board.TODO;
+		_animation = _board.startShowingSolution;
 	}
+
+	private Animation _animation;
 
 	override bool handle(Event event)
 	{
@@ -130,6 +133,9 @@ class Solved : State, StateChange
 
 	override void yield() 
 	{
-		// TODO
+		if(_animation.done)
+		{
+			become!Playing;
+		}
 	}
 }

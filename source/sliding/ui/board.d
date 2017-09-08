@@ -2,6 +2,7 @@
 
 import dsfml.graphics;
 import sliding.domain.avoid;
+import sliding.ui.anime;
 import sliding.ui.config;
 import sliding.ui.controls;
 import sliding.ui.conv;
@@ -64,8 +65,8 @@ class Board
 		return _picture.isPuzzleSolved;
 	}
 
-	void TODO()
+	Animation startShowingSolution()
 	{
-		_picture.TODO;
+		return _picture.startShowingSolution;
 	}
 }
