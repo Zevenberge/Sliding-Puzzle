@@ -41,7 +41,6 @@ class Board
 	private Control _control;
 	private Picture _picture;
 
-	// TODO : Verplaats deze zooi naar Picture, aangezien dat de klasse is die blijkbaar daarvoor verantwoordelijk is.
 	bool handle(Event event)
 	{
 		return _control.handle(event);

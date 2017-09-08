@@ -13,16 +13,10 @@ class Picture
 {
 	this(Void void_, string filename)
 	{
-		import std.algorithm;
-		import std.array;
 		void_.exceptionBehaviourHandler = new ThrowingBehaviourHandler;
 		load(filename);
-		_pieces = void_.allElements
-					.map!(e => cast(Tile)e)
-					.filter!(t => t !is null)
-					.map!(t => new Piece(t, this))
-					.array;
 		determineAreaOfInterest;
+		gatherAllPieces(void_);
 	}
 
 	private void load(string filename)
@@ -34,6 +28,17 @@ class Picture
 	{
 		auto size = _texture.getSize;
 		_areaOfInterest = IntRect(Vector2i(), size.toVector2i).biggestCenteredSquare;
+	}
+
+	private void gatherAllPieces(Void void_)
+	{
+		import std.algorithm;
+		import std.array;
+		_pieces = void_.allElements
+					.map!(e => cast(Tile)e)
+					.filter!(t => t !is null)
+					.map!(t => new Piece(t, this))
+					.array;
 	}
 
 	private Texture _texture;

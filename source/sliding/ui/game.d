@@ -3,10 +3,8 @@
 import std.experimental.logger;
 import dsfml.graphics;
 import sliding.domain.exception;
-import sliding.domain.factory;
-import sliding.domain.randomizer;
-import sliding.ui.board;
 import sliding.ui.config;
+import sliding.ui.state;
 
 void run()
 {
@@ -14,10 +12,8 @@ void run()
 	trace("Creating window.");
 	auto window = new RenderWindow(VideoMode(config.screenSize.x, config.screenSize.y), "Sliding");
 	window.setFramerateLimit(60);
-	
-	trace("Creating board");
-	auto board = initialiseBoard("res/example.png");
-	trace("Starting application loop");
+	become!Initializing;
+	info("Starting application loop");
 	try
 	{
 	windowLoop: while(window.isOpen)
@@ -35,7 +31,7 @@ void run()
 				{
 					try
 					{
-						board.handle(event);
+						state.handle(event);
 					}
 					catch(IllegalMoveException)
 					{
@@ -43,7 +39,7 @@ void run()
 					}
 				}
 			}
-			board.draw(window);
+			state.draw(window);
 			window.display;
 		}
 	}
@@ -59,19 +55,6 @@ void run()
 		writeThrowable(e);
 		throw e;
 	}
-}
-
-private Board initialiseBoard(string filename)
-{
-	auto factory = new Factory;
-	auto firstElement = factory.create;
-	trace("Created the elements");
-	auto void_ = firstElement.void_;
-	trace("Retreived the void");
-	auto randomizer = new Randomizer;
-	randomizer.shuffle(void_);
-	trace("Shuffled the puzzle");
-	return new Board(void_, filename);
 }
 
 private void writeThrowable(Throwable t)

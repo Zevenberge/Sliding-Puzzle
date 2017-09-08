@@ -21,6 +21,7 @@ class Piece
 
 	void draw(RenderTarget target)
 	{
+		import std.experimental.logger;
 		updatePosition;
 		target.draw(_picture);
 	}
