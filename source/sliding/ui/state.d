@@ -3,7 +3,6 @@
 import std.experimental.logger;
 import dsfml.graphics;
 import sliding.domain.factory;
-import sliding.domain.randomizer;
 import sliding.ui.anime;
 import sliding.ui.board;
 
@@ -47,7 +46,7 @@ class Initializing : State, StateChange
 	private static void changeState()
 	{
 		trace("Creating board");
-		auto board = initialiseBoard("res/example.png");
+		auto board = initialiseBoard();
 		_state = new Initializing(board);
 	}
 
@@ -67,17 +66,14 @@ class Initializing : State, StateChange
 	}
 }
 
-private Board initialiseBoard(string filename)
+private Board initialiseBoard()
 {
 	auto factory = new Factory;
 	auto firstElement = factory.create;
 	trace("Created the elements");
 	auto void_ = firstElement.void_;
 	trace("Retreived the void");
-	auto randomizer = new Randomizer;
-	randomizer.shuffle(void_);
-	trace("Shuffled the puzzle");
-	return new Board(void_, filename);
+	return new Board(void_);
 }
 
 class Playing : State, StateChange
@@ -90,6 +86,7 @@ class Playing : State, StateChange
 	private this(Board board)
 	{
 		super(board);
+		board.setUpPuzzle;
 	}
 
 	override bool handle(Event event)
@@ -135,7 +132,37 @@ class Solved : State, StateChange
 	{
 		if(_animation.done)
 		{
-			become!Playing;
+			if(_board.areAllPuzzlesSolved)
+			{
+				become!AllSolved;
+			}
+			else
+			{
+				become!Playing;
+			}
 		}
+	}
+}
+
+class AllSolved : State, StateChange
+{
+	private static void changeState()
+	{
+		_state = new AllSolved(_state._board);
+	}
+
+	private this(Board board)
+	{
+		super(board);
+	}
+
+	override bool handle(Event event)
+	{
+		return false;
+	}
+
+	override void yield() 
+	{
+		// Do nothing.
 	}
 }

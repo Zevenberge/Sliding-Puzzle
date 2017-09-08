@@ -2,6 +2,7 @@
 
 import dsfml.graphics;
 import sliding.domain.avoid;
+import sliding.domain.randomizer;
 import sliding.ui.anime;
 import sliding.ui.config;
 import sliding.ui.controls;
@@ -11,11 +12,11 @@ import sliding.ui.util;
 
 class Board
 {
-	this(Void void_, string filename)
+	this(Void void_)
 	{
-		_picture = new Picture(void_, filename);
-		_control = new KeyboardAndMouseControl(void_, _picture.pieces);
+		_void = void_;
 		initializeBackground;
+		_puzzles = getFilenamesFromFolder;
 	}
 
 	private void initializeBackground()
@@ -34,23 +35,42 @@ class Board
 		_topBackground.fillColor = Color(70,45,24,180);
 	}
 
+	private Void _void;
+	private string[] _puzzles;
+	private Picture _picture;
+	private bool _isInitialised;
+
+	void setUpPuzzle()
+	{
+		auto filename = _puzzles[0];
+		_puzzles = _puzzles[1..$];
+		shufflePuzzle;
+		_picture = new Picture(_void, filename);
+		_control = new KeyboardAndMouseControl(_void, _picture.pieces);
+		_isInitialised = true;
+	}
+
+	private void shufflePuzzle()
+	{
+		auto randomizer = new Randomizer;
+		randomizer.shuffle(_void);
+	}
+
+	private Control _control;
+	bool handle(Event event)
+	{
+		return _isInitialised && _control.handle(event);
+	}
+
 	private Texture _bottomTexture;
 	private Sprite _bottomBackground;
 	private Texture _boardTexture;
 	private Sprite _board;
 	private RectangleShape _topBackground;
-	private Control _control;
-	private Picture _picture;
-
-	bool handle(Event event)
-	{
-		return _control.handle(event);
-	}
-
 	void draw(RenderTarget target)
 	{
 		drawBackground(target);
-		_picture.draw(target);
+		if(_isInitialised) _picture.draw(target);
 	}
 
 	private void drawBackground(RenderTarget target)
@@ -65,8 +85,19 @@ class Board
 		return _picture.isPuzzleSolved;
 	}
 
+	bool areAllPuzzlesSolved()
+	{
+		import std.array;
+		return isPuzzleSolved && _puzzles.empty;
+	}
+
 	Animation startShowingSolution()
 	{
 		return _picture.startShowingSolution;
 	}
+}
+
+private string[] getFilenamesFromFolder()
+{
+	return ["res/example.png"];
 }
