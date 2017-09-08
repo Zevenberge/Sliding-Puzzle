@@ -50,6 +50,7 @@ Texture load(string filename)
 	{
 		throw new LoadFromFileFailedException(filename);
 	}
+	texture.setSmooth = true;
 	return texture;
 }
 
